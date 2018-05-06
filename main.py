@@ -1,37 +1,10 @@
-from bittrex_v2 import Bittrex
-from classes.macd import Macd
+from classes.bittrex_client import get_macd_ohlc
+from classes.mongo_client import insert_or_update
+from classes.macd_helper import set_ema12
 
-# macd = Macd(exchange="Bittrex",
-#     marketName="USDT-BTC",
-#     tickInterval="day",
-#     open=9351.00000005,
-#     high=9570,
-#     low=9205.00000001,
-#     close=9300,
-#     volume=859.57861887,
-#     timestamp="2018-04-29T00:00:00")
-# 
-# print(macd.close)
+liste_macd = get_macd_ohlc()
 
-bittrexClient = Bittrex()
-ticks = bittrexClient.get_ticks("USDT-BTC","day")
+for macd in liste_macd:
+    insert_or_update(macd)
 
-liste_macd = []
-
-for tick in ticks["result"]:
-
-    macd = Macd(exchange="Bittrex",
-        marketName="USDT-BTC",
-        tickInterval="day",
-        open=tick["O"],
-        high=tick["H"],
-        low=tick["L"],
-        close=tick["C"],
-        volume=tick["V"],
-        timestamp=tick["T"])
-    
-    liste_macd.append(macd)
-
-print("nombre de OHLC récupérés de Bittrex ", len(liste_macd))
-
-print("last signal value ", liste_macd[-1].signal)
+set_ema12()
