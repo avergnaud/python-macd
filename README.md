@@ -2,6 +2,10 @@
 
 http://api.mongodb.com/python/current/tutorial.html
 
+install de ta-lib
+https://stackoverflow.com/questions/44757678/python-ta-lib-install-error-how-solve-it
+puis sudo -H pip3 install TA-Lib
+
 # Appel à Bittrex
 
 https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=USDT-BTC&tickInterval=day
